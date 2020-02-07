@@ -1,4 +1,4 @@
 ---
 - src: https://github.com/dj-wasabi/ansible-zabbix-agent
   version: master
-  name: zabbix-agent
+  name: dj-wasabi.zabbix-agent
