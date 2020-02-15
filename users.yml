@@ -16,11 +16,11 @@
     - name: Add user ansible to sudoers.d folder
       lineinfile:
         path: /etc/sudoers.d/ansible
-        line: 'ansible ALL=(ALL) NOPASSWD: ALL'
+        line: "ansible ALL=(ALL) NOPASSWD: ALL"
         state: present
         mode: 0440
         create: yes
-        validate: 'visudo -cf %s'
+        validate: "visudo -cf %s"
 
     - name: Set includedir in sudoers (if not already existing)
       lineinfile:
@@ -31,7 +31,7 @@
 
     - name: Adding sshkey to user {{ item }}
       authorized_key:
-        user: {{ item }}
+        user: "{{ item }}"
         key: "{{ lookup('file', 'files/'+ item +'.pub') }}"
         state: present
       with_items:
