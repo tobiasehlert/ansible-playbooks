@@ -29,7 +29,7 @@
         state: present
         validate: "/usr/sbin/visudo -cf %s"
 
-    - name: Adding sshkey to user {{ item }}
+    - name: Adding sshkey to list of users
       authorized_key:
         user: "{{ item }}"
         key: "{{ lookup('file', 'files/'+ item +'.pub') }}"
