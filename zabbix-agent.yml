@@ -1,4 +1,6 @@
 ---
-- hosts: all
+- name: zabbix-agent.yml - Installation of Zabbix agent by role
+  hosts: all
+
   roles:
     - role: dj-wasabi.zabbix-agent

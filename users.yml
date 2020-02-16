@@ -2,9 +2,7 @@
 - name: users.yml - setting up certain users
   hosts: all
   
-
   tasks:
-
     - name: Setup Ansible User
       user:
         name: ansible
@@ -37,4 +35,3 @@
       with_items:
         - ansible
         - tobias
-
