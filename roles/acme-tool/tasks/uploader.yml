@@ -1,0 +1,40 @@
+---
+# tasks file for roles/acme-tool
+
+- stat:
+    path: "{{ certificatedestination }}"
+  register: certificatedestination_folder
+- name: Create directory {{ certificatedestination }} if it does not exist
+  file:
+    path: "{{ certificatedestination }}"
+    state: directory
+    mode: '0755'
+  when: certificatedestination_folder.stat.exists == false
+
+- name: Uploading cert.pem to {{ certificatedestination }} as <domain>-cert.pem
+  copy:
+    src: "{{ tmp_letsencrypt_folder }}/{{ item }}/cert.pem"
+    dest: "{{ certificatedestination }}/{{ item }}-cert.pem"
+    owner: root
+    group: root
+    mode: '0644'
+  with_items: "{{ letsencrypt_certs }}"
+
+- name: Uploading privkey.pem to {{ certificatedestination }} as <domain>-privkey.pem
+  copy:
+    src: "{{ tmp_letsencrypt_folder }}/{{ item }}/privkey.pem"
+    dest: "{{ certificatedestination }}/{{ item }}-privkey.pem"
+    owner: root
+    group: root
+    mode: '0640'
+  with_items: "{{ letsencrypt_certs }}"
+
+- name: Reloading {{ letsencrypt_reload_app }} on targethost
+  service:
+    name: "{{ letsencrypt_reload_app }}"
+    state: reloaded
+  when: ( letsencrypt_reload_app == 'nginx' ) or
+        ( letsencrypt_reload_app == 'apache' )
+
+
+

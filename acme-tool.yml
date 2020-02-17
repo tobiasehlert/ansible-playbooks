@@ -1,0 +1,28 @@
+---
+- name: acme-tool.yml - Collector of letsencrypt certs from host in group letsencrypt
+  hosts: letsencrypt
+
+  pre_tasks:
+  - name: Creating temporary folder to store certs during runtime
+    file:
+      path: "{{ tmp_letsencrypt_folder }}"
+      state: directory
+    delegate_to: localhost
+
+  roles:
+    - role: roles/acme-tool
+      vars:
+        operation: 'collector'
+
+- name: acme-tool.yml - Uploading of letsencrypt certs to all servers except letsencrypt
+  hosts: all:!letsencrypt
+
+  roles:
+    - roles/acme-tool
+
+  post_tasks:
+    - name: Cleaning up temporary folders used during runtime
+      file:
+        path: "{{tmp_letsencrypt_folder }}"
+        state: absent
+      delegate_to: localhost

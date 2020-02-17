@@ -1,0 +1,19 @@
+---
+# tasks file for roles/acme-tool
+- name: Getting list of letsencrypt certs available in {{ letsencrypt_livefolder }}
+  shell: find {{ letsencrypt_livefolder }} -maxdepth 1 -type d -not -name live | awk -F "/" '{print $NF}'
+  register: letsencrypt_domains
+
+- name: Fetching cert.pem from remote and storing in {{ tmp_letsencrypt_folder }}
+  fetch:
+    src: "{{ letsencrypt_livefolder }}/{{ item }}/cert.pem"
+    dest: "{{ tmp_letsencrypt_folder }}/{{ item }}/"
+    flat: yes
+  with_items: "{{ letsencrypt_domains.stdout_lines }}"
+
+- name: Fetching privkey from remote and storing in {{ tmp_letsencrypt_folder }}
+  fetch:
+    src: "{{ letsencrypt_livefolder }}/{{ item }}/privkey.pem"
+    dest: "{{ tmp_letsencrypt_folder }}{{ item }}/"
+    flat: yes
+  with_items: "{{ letsencrypt_domains.stdout_lines }}"

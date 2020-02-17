@@ -1,0 +1,6 @@
+---
+# defaults file for roles/acme-tool
+tmp_letsencrypt_folder: '/tmp/ansible/acme-tool/'
+letsencrypt_livefolder: '/etc/letsencrypt/live/'
+certificatedestination: '/etc/nginx/ssl'
+letsencrypt_reload_app: 'nginx'

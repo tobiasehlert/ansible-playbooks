@@ -1,0 +1,11 @@
+---
+# tasks file for roles/acme-tool
+
+- name: Importing downloader.yml
+  include_tasks: downloader.yml
+  when: operation is defined and operation == 'collector'
+
+- name: Importing uploader.yml
+  include_tasks: uploader.yml
+  when: operation is not defined
+
