@@ -8,6 +8,7 @@
       path: "{{ tmp_letsencrypt_folder }}"
       state: directory
     delegate_to: localhost
+    run_once: yes
 
   roles:
     - role: roles/acme-tool
@@ -26,3 +27,4 @@
         path: "{{tmp_letsencrypt_folder }}"
         state: absent
       delegate_to: localhost
+      run_once: yes
