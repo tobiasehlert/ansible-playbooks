@@ -1,6 +1,10 @@
 ---
 # tasks file for roles/acme-tool
 
+- name: Ending for hosts that are missing letsencrypt_certs vars
+  meta: end_host
+  when: letsencrypt_certs is not defined
+
 - stat:
     path: "{{ certificatedestination }}"
   register: certificatedestination_folder
@@ -9,7 +13,7 @@
     path: "{{ certificatedestination }}"
     state: directory
     mode: '0755'
-  when: letsencrypt_certs is defined and certificatedestination_folder.stat.exists == false
+  when: certificatedestination_folder.stat.exists == false
 
 - name: Uploading cert.pem to {{ certificatedestination }} as <domain>-cert.pem
   copy:
@@ -19,7 +23,6 @@
     group: root
     mode: '0644'
   with_items: "{{ letsencrypt_certs }}"
-  when: letsencrypt_certs is defined
 
 - name: Uploading privkey.pem to {{ certificatedestination }} as <domain>-privkey.pem
   copy:
@@ -29,14 +32,12 @@
     group: root
     mode: '0640'
   with_items: "{{ letsencrypt_certs }}"
-  when: letsencrypt_certs is defined
 
 - name: Reloading {{ letsencrypt_reload_app }} on targethost
   service:
     name: "{{ letsencrypt_reload_app }}"
     state: reloaded
-  when: letsencrypt_certs is defined and (
-          letsencrypt_reload_app == 'nginx' or
+  when: ( letsencrypt_reload_app == 'nginx' or
           letsencrypt_reload_app == 'apache' )
 
 
