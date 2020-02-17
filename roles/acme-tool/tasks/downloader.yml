@@ -3,6 +3,7 @@
 - name: Getting list of letsencrypt certs available in {{ letsencrypt_livefolder }}
   shell: find {{ letsencrypt_livefolder }} -maxdepth 1 -type d -not -name live | awk -F "/" '{print $NF}'
   register: letsencrypt_domains
+  changed_when: false
 
 - name: Fetching cert.pem from remote and storing in {{ tmp_letsencrypt_folder }}
   fetch:
