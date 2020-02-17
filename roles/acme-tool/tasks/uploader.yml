@@ -4,7 +4,8 @@
 - stat:
     path: "{{ certificatedestination }}"
   register: certificatedestination_folder
-  when: letsencrypt_certs is defined
+  when:
+    - letsencrypt_certs is defined
 - name: Create directory {{ certificatedestination }} if it does not exist
   file:
     path: "{{ certificatedestination }}"
