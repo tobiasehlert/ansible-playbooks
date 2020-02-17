@@ -4,16 +4,12 @@
 - stat:
     path: "{{ certificatedestination }}"
   register: certificatedestination_folder
-  when:
-    - letsencrypt_certs is defined
 - name: Create directory {{ certificatedestination }} if it does not exist
   file:
     path: "{{ certificatedestination }}"
     state: directory
     mode: '0755'
-  when:
-    - certificatedestination_folder.stat.exists == false
-    - letsencrypt_certs is defined
+  when: letsencrypt_certs is defined and certificatedestination_folder.stat.exists == false
 
 - name: Uploading cert.pem to {{ certificatedestination }} as <domain>-cert.pem
   copy:
@@ -23,8 +19,7 @@
     group: root
     mode: '0644'
   with_items: "{{ letsencrypt_certs }}"
-  when:
-    - letsencrypt_certs is defined
+  when: letsencrypt_certs is defined
 
 - name: Uploading privkey.pem to {{ certificatedestination }} as <domain>-privkey.pem
   copy:
@@ -34,8 +29,7 @@
     group: root
     mode: '0640'
   with_items: "{{ letsencrypt_certs }}"
-  when:
-    - letsencrypt_certs is defined
+  when: letsencrypt_certs is defined
 
 - name: Reloading {{ letsencrypt_reload_app }} on targethost
   service:
