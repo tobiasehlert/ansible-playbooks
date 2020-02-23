@@ -40,4 +40,10 @@
   when: ( letsencrypt_reload_app == 'nginx' or
           letsencrypt_reload_app == 'apache' )
 
-
+- name: Restarting docker-compose on targethost
+  docker_compose:
+    project_src: "{{ dockercompose_projectsrc }}"
+    state: present
+    build: no
+    restarted: yes
+  when: letsencrypt_reload_app == 'docker-compose'
