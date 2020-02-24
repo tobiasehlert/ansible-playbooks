@@ -18,3 +18,25 @@
       zabbix_server_database: mysql
       zabbix_server_database_long: mysql
       zabbix_server_dbport: 3306
+
+  post_tasks:
+    - name: stat foo
+      stat: path=/etc/httpd/conf.d/ssl.conf
+      register: ssl_file_stat
+
+    - name: Rename ssl file to prevent httpd to do weird things..
+      command: mv /etc/httpd/conf.d/ssl.conf /etc/httpd/conf.d/ssl.conf_bak
+      when: ssl_file_stat.stat.exists
+
+    - name: Add Listen 443 https to zabbix.conf
+      lineinfile:
+        path: /etc/httpd/conf.d/zabbix.conf
+        state: present
+        line: "Listen: 443"
+        insertbefore: regex
+        regexp: '_default_:443'
+
+    - name: Restarting httpd once again
+      service:
+        name: httpd
+        state: restarted
