@@ -22,10 +22,9 @@
     - name: Add Listen 443 https to zabbix.conf
       lineinfile:
         path: /etc/httpd/conf.d/zabbix.conf
-        state: present
-        line: "Listen: 443"
-        insertbefore: regex
-        regexp: '_default_:443'
+        line: "Listen: 443 https"
+        insertafter: regex
+        regexp: '^SSLCryptoDevice'
 
     - name: Restarting httpd once again
       service:
