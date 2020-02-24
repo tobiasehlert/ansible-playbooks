@@ -3,6 +3,7 @@
   hosts: zabbix-server
 
   roles:
+    - role: geerlingguy.apache
     - role: geerlingguy.apache-php-fpm
     - role: geerlingguy.mysql
 
