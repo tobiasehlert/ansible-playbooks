@@ -11,7 +11,7 @@
     - role: dj-wasabi.zabbix-web
 
   post_tasks:
-    - name: stat foo
+    - name: stat of /etc/httpd/conf.d/ssl.conf
       stat: path=/etc/httpd/conf.d/ssl.conf
       register: ssl_file_stat
 
@@ -19,11 +19,18 @@
       command: mv /etc/httpd/conf.d/ssl.conf /etc/httpd/conf.d/ssl.conf_bak
       when: ssl_file_stat.stat.exists
 
+    - name: stat of /etc/httpd/conf.d/zabbix.conf
+      stat: path=/etc/httpd/conf.d/zabbix.conf
+      register: httpd_zabbix_stat
+
     - name: Add Listen 443 https to zabbix.conf
       lineinfile:
         path: /etc/httpd/conf.d/zabbix.conf
         line: Listen 443 https
         insertafter: ^SSLCryptoDevice.*
+      when: httpd_zabbix_stat.stat.exists
+      notify:
+        - restart apache
 
     - name: Restarting httpd once again
       service:
