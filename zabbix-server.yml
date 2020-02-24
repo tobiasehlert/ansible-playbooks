@@ -7,7 +7,6 @@
     - role: geerlingguy.php
     - role: geerlingguy.php-mysql
     - role: geerlingguy.apache
-    - role: geerlingguy.apache-php-fpm
 
     - role: dj-wasabi.zabbix-server
       zabbix_server_database: mysql
