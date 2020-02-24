@@ -2,12 +2,5 @@
 - name: zabbix-agent.yml - Installation of Zabbix agent by role
   hosts: all
 
-  pre_tasks:
-  - name: Installing redhat-lsb to support lsb_release
-    yum:
-      name: redhat-lsb
-      state: latest
-    when: ansible_os_family == "CentOS"
-
   roles:
     - role: dj-wasabi.zabbix-agent
