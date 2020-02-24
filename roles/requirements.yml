@@ -16,6 +16,6 @@
   version: master
   name: geerlingguy.mysql
 
-- src: https://github.com/geerlingguy/ansible-role-apache
+- src: https://github.com/geerlingguy/ansible-role-apache-php-fpm
   version: master
-  name: geerlingguy.apache
+  name: geerlingguy.apache-php-fpm
