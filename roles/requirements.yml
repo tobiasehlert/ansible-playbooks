@@ -15,7 +15,9 @@
 - src: https://github.com/geerlingguy/ansible-role-mysql
   version: master
   name: geerlingguy.mysql
-
+- src: https://github.com/geerlingguy/ansible-role-php
+  version: master
+  name: geerlingguy.php
 - src: https://github.com/geerlingguy/ansible-role-apache
   version: master
   name: geerlingguy.apache
