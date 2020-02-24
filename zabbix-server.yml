@@ -1,0 +1,19 @@
+---
+- name: zabbix-server.yml - Installation of Zabbix server by role
+  hosts: zabbix-server
+
+  roles:
+    - role: geerlingguy.apache
+
+    - role: geerlingguy.mysql
+
+    - role: dj-wasabi.zabbix-server
+      zabbix_server_database: mysql
+      zabbix_server_database_long: mysql
+      zabbix_server_dbport: 3306
+
+    - role: dj-wasabi.zabbix-web
+      zabbix_url: zabbix.dj-wasabi.nl
+      zabbix_server_database: mysql
+      zabbix_server_database_long: mysql
+      zabbix_server_dbport: 3306

@@ -2,3 +2,20 @@
 - src: https://github.com/dj-wasabi/ansible-zabbix-agent
   version: master
   name: dj-wasabi.zabbix-agent
+
+- src: https://github.com/dj-wasabi/ansible-zabbix-server
+  version: master
+  name: dj-wasabi.zabbix-server
+
+- src: https://github.com/dj-wasabi/ansible-zabbix-web
+  version: master
+  name: dj-wasabi.zabbix-web
+
+
+- src: https://github.com/geerlingguy/ansible-role-mysql
+  version: master
+  name: geerlingguy.mysql
+
+- src: https://github.com/geerlingguy/ansible-role-apache
+  version: master
+  name: geerlingguy.apache
