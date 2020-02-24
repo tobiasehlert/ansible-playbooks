@@ -29,8 +29,6 @@
         line: Listen 443 https
         insertafter: ^SSLCryptoDevice.*
       when: httpd_zabbix_stat.stat.exists
-      notify:
-        - restart apache
 
     - name: Restarting httpd once again
       service:
