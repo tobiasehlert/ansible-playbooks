@@ -38,6 +38,7 @@
     name: "{{ letsencrypt_reload_app }}"
     state: reloaded
   when: ( letsencrypt_reload_app == 'nginx' or
+          letsencrypt_reload_app == 'httpd' or
           letsencrypt_reload_app == 'apache' )
 
 - name: Restarting docker-compose on targethost
