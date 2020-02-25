@@ -1,6 +1,6 @@
 ---
-- name: nginx.yml - Installation of Nginx reverse proxy
-  hosts: nginx-reverseproxy
+- name: nginx.yml - Installation of Nginx software
+  hosts: nginx
 
   roles:
     - role: nginxinc.nginx
