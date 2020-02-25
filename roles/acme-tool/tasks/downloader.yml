@@ -5,9 +5,9 @@
   register: letsencrypt_domains
   changed_when: false
 
-- name: Fetching cert.pem from remote and storing in {{ tmp_letsencrypt_folder }}
+- name: Fetching fullchain.pem from remote and storing in {{ tmp_letsencrypt_folder }}
   fetch:
-    src: "{{ letsencrypt_livefolder }}/{{ item }}/cert.pem"
+    src: "{{ letsencrypt_livefolder }}/{{ item }}/fullchain.pem"
     dest: "{{ tmp_letsencrypt_folder }}/{{ item }}/"
     flat: yes
   with_items: "{{ letsencrypt_domains.stdout_lines }}"
@@ -18,3 +18,4 @@
     dest: "{{ tmp_letsencrypt_folder }}{{ item }}/"
     flat: yes
   with_items: "{{ letsencrypt_domains.stdout_lines }}"
+

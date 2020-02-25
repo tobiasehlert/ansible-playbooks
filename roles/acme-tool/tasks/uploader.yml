@@ -15,10 +15,10 @@
     mode: '0755'
   when: certificatedestination_folder.stat.exists == false
 
-- name: Uploading cert.pem to {{ certificatedestination }} as <domain>-cert.pem
+- name: Uploading fullchain.pem to {{ certificatedestination }} as <domain>-fullchain.pem
   copy:
-    src: "{{ tmp_letsencrypt_folder }}/{{ item }}/cert.pem"
-    dest: "{{ certificatedestination }}/{{ item }}-cert.pem"
+    src: "{{ tmp_letsencrypt_folder }}/{{ item }}/fullchain.pem"
+    dest: "{{ certificatedestination }}/{{ item }}-fullchain.pem"
     owner: root
     group: root
     mode: '0644'
