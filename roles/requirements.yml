@@ -25,3 +25,6 @@
 - src: https://github.com/geerlingguy/ansible-role-apache
   version: master
   name: geerlingguy.apache
+- src: https://github.com/geerlingguy/ansible-role-docker
+  version: master
+  name: geerlingguy.docker
