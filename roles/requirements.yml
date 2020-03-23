@@ -1,4 +1,8 @@
 ---
+- src: https://github.com/tobiasehlert/ansible-role-teslamate
+  version: master
+  name: tobiasehlert.teslamate
+
 - src: https://github.com/dj-wasabi/ansible-zabbix-agent
   version: master
   name: dj-wasabi.zabbix-agent

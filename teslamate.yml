@@ -12,5 +12,5 @@
 
   roles:
     - role: geerlingguy.docker
-    - role: roles/acme-role-teslamate
+    - role: tobiasehlert.teslamate
 
