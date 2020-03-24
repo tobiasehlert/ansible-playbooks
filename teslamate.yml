@@ -13,7 +13,6 @@
       - tobias
       - ansible
 
-
   roles:
     - role: geerlingguy.docker
     - role: tobiasehlert.teslamate
