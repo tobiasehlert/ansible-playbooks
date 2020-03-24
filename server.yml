@@ -1,0 +1,18 @@
+---
+- name: server.yml - basic server software installation
+  hosts: all
+
+  tasks:
+    - name: Set SELinux in permissive mode, logging actions that would be blocked.
+      selinux:
+        policy: targeted
+        state: permissive
+
+    - name: Installation of basic software on servers..
+      yum:
+        name:
+          - git
+          - net-tools
+          - open-vm-tools
+          - vim
+        state: present
