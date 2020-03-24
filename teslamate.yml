@@ -12,6 +12,7 @@
     docker_users:
       - tobias
       - ansible
+    pip_package: python3-pip
     pip_install_packages:
       - name: docker
 
