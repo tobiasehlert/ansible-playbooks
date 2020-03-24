@@ -15,6 +15,7 @@
     pip_package: python3-pip
     pip_install_packages:
       - name: docker
+      - name: docker-compose
 
   roles:
     - role: geerlingguy.pip
