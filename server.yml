@@ -1,18 +1,45 @@
 ---
-- name: server.yml - basic server software installation
+- name: server.yml - basic server setup
   hosts: all
 
   tasks:
-    - name: Set SELinux in permissive mode, logging actions that would be blocked.
-      selinux:
-        policy: targeted
-        state: permissive
-
+#    - name: Set SELinux in permissive mode, logging actions that would be blocked.
+#      selinux:
+#        policy: targeted
+#        state: permissive
+#
     - name: Installation of basic software on servers..
       yum:
         name:
           - git
+          - htop
           - net-tools
           - open-vm-tools
           - vim
         state: present
+
+    - name: Installation of RHEL/CentOS SELinux related software..
+      yum:
+        name:
+          - selinux-policy-targeted
+        state: present
+      when:
+        - zabbix_agent_os_family == "RedHat"
+
+    - name: Installation of RHEL/CentOS 6/7 related software..
+      yum:
+        name:
+          - policycoreutils-python
+        state: present
+      when:
+        - zabbix_agent_os_family == "RedHat"
+        - ( zabbix_agent_distribution_major_version == "6" or zabbix_agent_distribution_major_version == "7" )
+
+    - name: Installation of RHEL/CentOS 8 related software..
+      yum:
+        name:
+          - python3-policycoreutils
+        state: present
+      when:
+        - zabbix_agent_os_family == "RedHat"
+        - ansible_distribution_major_version == "8"
