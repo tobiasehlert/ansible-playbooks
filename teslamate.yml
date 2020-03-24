@@ -15,5 +15,4 @@
 
   roles:
     - role: geerlingguy.docker
-    - role: tobiasehlert.ansible_role_teslamate
-
+    - role: tobiasehlert.teslamate
