@@ -12,7 +12,10 @@
     docker_users:
       - tobias
       - ansible
+    pip_install_packages:
+      - name: docker
 
   roles:
+    - role: geerlingguy.pip
     - role: geerlingguy.docker
     - role: tobiasehlert.teslamate
