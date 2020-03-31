@@ -28,9 +28,6 @@
 - src: https://github.com/geerlingguy/ansible-role-docker
   version: master
   name: geerlingguy.docker
-- src: https://github.com/geerlingguy/ansible-role-pip
-  version: master
-  name: geerlingguy.pip
 
 - src: https://github.com/tobiasehlert/ansible-role-teslamate
   version: master

@@ -2,25 +2,6 @@
 - name: teslamate.yml - TeslaMate installation in Docker but all automated..
   hosts: teslamate
 
-  vars:
-#    docker_edition: 'ce'
-#    docker_package: "docker-{{ docker_edition }}"
-#    docker_package_state: present
-#    docker_install_compose: true
-#    docker_compose_version: "1.25.4"
-#    docker_compose_path: /usr/local/bin/docker-compose
-    docker_users:
-      - tobias
-      - ansible
-#    pip_package: python3-pip
-#    pip_executable: pip3
-#    pip_install_packages:
-#      - name: setuptools
-#      - name: compose
-#      - name: docker-compose
-#      - name: docker-py
-
   roles:
-#    - role: geerlingguy.pip
     - role: geerlingguy.docker
     - role: tobiasehlert.teslamate
