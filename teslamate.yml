@@ -18,12 +18,14 @@
       - name: setuptools
       - name: docker
       - name: docker-compose
+      - name: docker-py
 
   pre_tasks:
     - name: Installation of RHEL/CentOS 6/7 related software..
       yum:
         name:
           - setuptool
+          - python-setuptools
         state: present
       when:
         - ansible_facts['os_family'] == "RedHat"
