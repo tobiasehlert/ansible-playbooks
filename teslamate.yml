@@ -3,6 +3,7 @@
   hosts: teslamate
 
   vars:
+    ansible_python_interpreter: /usr/bin/python3
     docker_edition: 'ce'
     docker_package: "docker-{{ docker_edition }}"
     docker_package_state: present
