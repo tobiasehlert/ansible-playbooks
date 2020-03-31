@@ -16,6 +16,7 @@
     pip_executable: pip3
     pip_install_packages:
       - name: setuptools
+      - name: compose
       - name: docker
       - name: docker-compose
       - name: docker-py
