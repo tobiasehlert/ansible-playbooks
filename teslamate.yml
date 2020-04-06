@@ -1,7 +1,18 @@
 ---
 - name: teslamate.yml - TeslaMate installation in Docker but all automated..
   hosts: teslamate
+  vars:
+    pip_package: python-pip
+    pip_executable: pip
+    pip_install_packages:
+      - name: setuptools
+      - name: compose
+      - name: docker
+      - name: docker-compose
+      - name: docker-py
+
 
   roles:
+    - role: geerlingguy.pip
     - role: geerlingguy.docker
     - role: tobiasehlert.teslamate
