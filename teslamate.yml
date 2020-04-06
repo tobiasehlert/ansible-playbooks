@@ -9,8 +9,6 @@
       - name: compose
       - name: docker
       - name: docker-compose
-      - name: docker-py
-
 
   roles:
     - role: geerlingguy.pip
