@@ -6,10 +6,12 @@
     pip_package: python3-pip
     pip_executable: pip3
     pip_install_packages:
-      - name: setuptools
       - name: compose
       - name: docker
       - name: docker-compose
+      - name: requests
+      - name: setuptools
+      - name: urllib3
 
   pre_tasks:
     - name: Installation of RHEL/CentOS 7 related software..
