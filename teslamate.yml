@@ -11,6 +11,28 @@
       - name: docker
       - name: docker-compose
 
+  pre_tasks:
+    - name: Installation of RHEL/CentOS 7 related software..
+      yum:
+        name:
+          - policycoreutils-python
+          - python-virtualenv
+          - setuptool
+        state: present
+      when:
+        - ansible_facts['os_family'] == "RedHat"
+        - ansible_facts['distribution_major_version'] == "7"
+
+    - name: Installation of RHEL/CentOS 8 related software..
+      yum:
+        name:
+          - python3-policycoreutils
+          - python3-virtualenv
+        state: present
+      when:
+        - ansible_facts['os_family'] == "RedHat"
+        - ansible_facts['distribution_major_version'] == "8"
+
   roles:
     - role: geerlingguy.pip
     - role: geerlingguy.docker
