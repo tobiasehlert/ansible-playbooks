@@ -2,7 +2,7 @@
 - name: teslamate.yml - TeslaMate installation in Docker but all automated..
   hosts: teslamate
   vars:
-    ansible_python_interpreter: /usr/bin/python3
+#    ansible_python_interpreter: /usr/bin/python3
     pip_package: python3-pip
     pip_executable: pip3
     pip_install_packages:
