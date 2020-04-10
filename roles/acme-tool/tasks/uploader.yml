@@ -44,10 +44,19 @@
 
 - name: Create symlink for vmware /etc/vmware/ssl/rui.crt
   file:
-    src: "{{ certificatedestination }}/{{ vmware_esxi_servercert }}-fullchain.crt"
+    src: "{{ certificatedestination }}/{{ vmware_esxi_servercert }}-fullchain.pem"
     dest: "/etc/vmware/ssl/rui.crt"
     state: link
   when: vmware_esxi_servercert|length > 0
+
+- name: Adjusting rights for vmware {{ vmware_esxi_servercert }}-privkey.pem
+  file:
+    path: "{{ certificatedestination }}/{{ vmware_esxi_servercert }}-privkey.pem"
+    mode: u=r,g=,o=
+- name: Adjusting rights for vmware {{ vmware_esxi_servercert }}-fullchain.pem
+  file:
+    path: "{{ certificatedestination }}/{{ vmware_esxi_servercert }}-fullchain.pem"
+    mode: u=rw,g=r,o=r
 
 
 - name: Reloading {{ letsencrypt_reload_app }} on targethost
