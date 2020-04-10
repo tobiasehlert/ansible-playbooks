@@ -15,6 +15,7 @@
     mode: '0755'
   when: certificatedestination_folder.stat.exists == false
 
+
 - name: Uploading fullchain.pem to {{ certificatedestination }} as <domain>-fullchain.pem
   copy:
     src: "{{ tmp_letsencrypt_folder }}/{{ item }}/fullchain.pem"
@@ -33,6 +34,22 @@
     mode: '0640'
   with_items: "{{ letsencrypt_certs }}"
 
+
+- name: Create symlink for vmware /etc/vmware/ssl/rui.key
+  file:
+    src: "{{ certificatedestination }}/{{ vmware_esxi_servercert }}-privkey.pem"
+    dest: "/etc/vmware/ssl/rui.key"
+    state: link
+  when: vmware_esxi_servercert|length > 0
+
+- name: Create symlink for vmware /etc/vmware/ssl/rui.crt
+  file:
+    src: "{{ certificatedestination }}/{{ vmware_esxi_servercert }}-fullchain.crt"
+    dest: "/etc/vmware/ssl/rui.crt"
+    state: link
+  when: vmware_esxi_servercert|length > 0
+
+
 - name: Reloading {{ letsencrypt_reload_app }} on targethost
   service:
     name: "{{ letsencrypt_reload_app }}"
@@ -47,3 +64,8 @@
   args:
     chdir: "{{ dockercompose_projectsrc }}"
   when: letsencrypt_reload_app == 'docker-compose'
+
+- name: Restarting vmware-esxi hostd on targethost
+  shell:
+    cmd: /etc/init.d/hostd restart
+  when: letsencrypt_reload_app == 'vmware-esxi'

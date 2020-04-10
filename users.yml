@@ -1,7 +1,7 @@
 ---
 - name: users.yml - setting up certain users
-  hosts: all
-  
+  hosts: all:!esxi
+
   tasks:
     - name: Setup Ansible User
       user:

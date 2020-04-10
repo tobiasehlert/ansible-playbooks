@@ -1,6 +1,6 @@
 ---
 - name: server.yml - basic server setup
-  hosts: all
+  hosts: all:!esxi
 
   tasks:
 #    - name: Set SELinux in permissive mode, logging actions that would be blocked.

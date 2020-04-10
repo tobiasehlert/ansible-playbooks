@@ -1,6 +1,6 @@
 ---
 - name: zabbix-agent.yml - Installation of Zabbix agent by role
-  hosts: all
+  hosts: all:!esxi
 
   roles:
     - role: dj-wasabi.zabbix-agent
