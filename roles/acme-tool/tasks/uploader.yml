@@ -45,28 +45,23 @@
   with_items: "{{ letsencrypt_certs }}"
 
 
-#sudo scp /etc/letsencrypt/live/$ESXiHost/fullchain.pem $ESXiUser@$ESXiHost:/etc/vmware/ssl/castore.pem
-#sudo scp /etc/letsencrypt/live/$ESXiHost/cert.pem $ESXiUser@$ESXiHost:/etc/vmware/ssl/rui.crt
-#sudo scp /etc/letsencrypt/live/$ESXiHost/privkey.pem $ESXiUser@$ESXiHost:/etc/vmware/ssl/rui.key
-
-
 - name: Create symlink for vmware /etc/vmware/ssl/rui.key
   file:
     src: "{{ certificatedestination }}/{{ vmware_esxi_servercert }}-privkey.pem"
     dest: "/etc/vmware/ssl/rui.key"
-    state: hard
+    state: link
   when: vmware_esxi_servercert|length > 0
 - name: Create symlink for vmware /etc/vmware/ssl/rui.crt
   file:
     src: "{{ certificatedestination }}/{{ vmware_esxi_servercert }}-cert.pem"
     dest: "/etc/vmware/ssl/rui.crt"
-    state: hard
+    state: link
   when: vmware_esxi_servercert|length > 0
 - name: Create symlink for vmware /etc/vmware/ssl/castore.pem
   file:
     src: "{{ certificatedestination }}/{{ vmware_esxi_servercert }}-fullchain.pem"
     dest: "/etc/vmware/ssl/castore.pem"
-    state: hard
+    state: link
   when: vmware_esxi_servercert|length > 0
 
 - name: Adjusting rights for vmware {{ vmware_esxi_servercert }}-privkey.pem
