@@ -24,16 +24,7 @@
     group: root
     mode: '0644'
   with_items: "{{ letsencrypt_certs }}"
-
-- name: Uploading cert.pem to {{ certificatedestination }} as <domain>-cert.pem
-  copy:
-    src: "{{ tmp_letsencrypt_folder }}/{{ item }}/cert.pem"
-    dest: "{{ certificatedestination }}/{{ item }}-cert.pem"
-    owner: root
-    group: root
-    mode: '0644'
-  with_items: "{{ letsencrypt_certs }}"
-  when: vmware_esxi_servercert|length > 0
+  when: vmware_esxi_servercert|length == 0
 
 - name: Uploading privkey.pem to {{ certificatedestination }} as <domain>-privkey.pem
   copy:
@@ -43,41 +34,34 @@
     group: root
     mode: '0640'
   with_items: "{{ letsencrypt_certs }}"
+  when: vmware_esxi_servercert|length == 0
 
 
-- name: Create symlink for vmware /etc/vmware/ssl/rui.key
-  file:
-    src: "{{ certificatedestination }}/{{ vmware_esxi_servercert }}-privkey.pem"
-    dest: "/etc/vmware/ssl/rui.key"
-    state: link
-  when: vmware_esxi_servercert|length > 0
-- name: Create symlink for vmware /etc/vmware/ssl/rui.crt
-  file:
-    src: "{{ certificatedestination }}/{{ vmware_esxi_servercert }}-cert.pem"
-    dest: "/etc/vmware/ssl/rui.crt"
-    state: link
-  when: vmware_esxi_servercert|length > 0
-- name: Create symlink for vmware /etc/vmware/ssl/castore.pem
-  file:
-    src: "{{ certificatedestination }}/{{ vmware_esxi_servercert }}-fullchain.pem"
-    dest: "/etc/vmware/ssl/castore.pem"
-    state: link
+- name: Uploading fullchain.pem to {{ certificatedestination }} as castore.pem
+  copy:
+    src: "{{ tmp_letsencrypt_folder }}/{{ vmware_esxi_servercert }}/fullchain.pem"
+    dest: "{{ certificatedestination }}/castore.pem"
+    owner: root
+    group: root
+    mode: '0644'
   when: vmware_esxi_servercert|length > 0
 
-- name: Adjusting rights for vmware {{ vmware_esxi_servercert }}-privkey.pem
-  file:
-    path: "{{ certificatedestination }}/{{ vmware_esxi_servercert }}-privkey.pem"
-    mode: u=r,g=,o=
+- name: Uploading cert.pem to {{ certificatedestination }} as rui.crt
+  copy:
+    src: "{{ tmp_letsencrypt_folder }}/{{ vmware_esxi_servercert }}/cert.pem"
+    dest: "{{ certificatedestination }}/rui.crt"
+    owner: root
+    group: root
+    mode: '0644'
   when: vmware_esxi_servercert|length > 0
-- name: Adjusting rights for vmware {{ vmware_esxi_servercert }}-fullchain.pem
-  file:
-    path: "{{ certificatedestination }}/{{ vmware_esxi_servercert }}-fullchain.pem"
-    mode: u=rw,g=r,o=r
-  when: vmware_esxi_servercert|length > 0
-- name: Adjusting rights for vmware {{ vmware_esxi_servercert }}-cert.pem
-  file:
-    path: "{{ certificatedestination }}/{{ vmware_esxi_servercert }}-cert.pem"
-    mode: u=rw,g=r,o=r
+
+- name: Uploading privkey.pem to {{ certificatedestination }} as rui.key
+  copy:
+    src: "{{ tmp_letsencrypt_folder }}/{{ vmware_esxi_servercert }}/privkey.pem"
+    dest: "{{ certificatedestination }}/rui.key"
+    owner: root
+    group: root
+    mode: '0400'
   when: vmware_esxi_servercert|length > 0
 
 
