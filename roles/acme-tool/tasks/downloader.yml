@@ -12,10 +12,16 @@
     flat: yes
   with_items: "{{ letsencrypt_domains.stdout_lines }}"
 
+- name: Fetching cert.pem from remote and storing in {{ tmp_letsencrypt_folder }}
+  fetch:
+    src: "{{ letsencrypt_livefolder }}/{{ item }}/cert.pem"
+    dest: "{{ tmp_letsencrypt_folder }}/{{ item }}/"
+    flat: yes
+  with_items: "{{ letsencrypt_domains.stdout_lines }}"
+
 - name: Fetching privkey from remote and storing in {{ tmp_letsencrypt_folder }}
   fetch:
     src: "{{ letsencrypt_livefolder }}/{{ item }}/privkey.pem"
     dest: "{{ tmp_letsencrypt_folder }}{{ item }}/"
     flat: yes
   with_items: "{{ letsencrypt_domains.stdout_lines }}"
-
