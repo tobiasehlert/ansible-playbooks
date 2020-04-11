@@ -68,14 +68,17 @@
   file:
     path: "{{ certificatedestination }}/{{ vmware_esxi_servercert }}-privkey.pem"
     mode: u=r,g=,o=
+  when: vmware_esxi_servercert|length > 0
 - name: Adjusting rights for vmware {{ vmware_esxi_servercert }}-fullchain.pem
   file:
     path: "{{ certificatedestination }}/{{ vmware_esxi_servercert }}-fullchain.pem"
     mode: u=rw,g=r,o=r
+  when: vmware_esxi_servercert|length > 0
 - name: Adjusting rights for vmware {{ vmware_esxi_servercert }}-cert.pem
   file:
     path: "{{ certificatedestination }}/{{ vmware_esxi_servercert }}-cert.pem"
     mode: u=rw,g=r,o=r
+  when: vmware_esxi_servercert|length > 0
 
 
 - name: Reloading {{ letsencrypt_reload_app }} on targethost
