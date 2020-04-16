@@ -37,4 +37,4 @@
   name: tobiasehlert.teslamate
 - src: https://github.com/tobiasehlert/ansible-role-teslamate-advanced
   version: master
-  name: tobiasehlert.teslamate-advanced
+  name: tobiasehlert.teslamate_advanced
