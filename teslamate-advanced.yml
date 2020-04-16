@@ -1,0 +1,8 @@
+---
+- name: teslamate-advanced.yml - TeslaMate installation on bare OS but all automated..
+  hosts: teslamate-advanced
+  vars:
+#    ansible_python_interpreter: /usr/bin/python3
+
+  roles:
+    - role: tobiasehlert.teslamate-advanced
