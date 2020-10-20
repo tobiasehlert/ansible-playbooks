@@ -9,9 +9,9 @@
 #  version: master
 #  name: dj-wasabi.zabbix-web
 
-- src: https://github.com/nginxinc/ansible-role-nginx
-  version: master
-  name: nginxinc.nginx
+#- src: https://github.com/nginxinc/ansible-role-nginx
+#  version: master
+#  name: nginxinc.nginx
 
 - src: https://github.com/geerlingguy/ansible-role-mysql
   version: master
